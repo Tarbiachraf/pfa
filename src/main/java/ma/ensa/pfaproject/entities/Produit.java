@@ -1,10 +1,16 @@
 package ma.ensa.pfaproject.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +24,8 @@ public class Produit {
     private String details;
 
     @OneToMany(mappedBy = "produit")
-    List<Ligne_Commande> ligneCommandes;
+    List<LigneCommande> ligneCommandes;
+
+    @ManyToOne
+    private CategorieProduit categorieProduit;
 }
