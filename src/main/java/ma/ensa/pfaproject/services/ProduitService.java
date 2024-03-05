@@ -1,13 +1,13 @@
 package ma.ensa.pfaproject.services;
 
+import ma.ensa.pfaproject.dtos.ProduitDTO;
 import ma.ensa.pfaproject.entities.Produit;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProduitService {
-    public Produit createProduit(Produit newproduit);
-    public Produit updateProduit(Produit updatedProduit);
+    public Produit createProduit(ProduitDTO newproduit);
+    public Produit updateProduit(ProduitDTO updatedProduit);
 
     public void deleteProduit(Long id);
     public Produit getProduitById(Long id);

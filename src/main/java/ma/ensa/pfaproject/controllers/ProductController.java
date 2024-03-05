@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.controllers;
 
+import ma.ensa.pfaproject.dtos.ProduitDTO;
 import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class ProductController {
     private ProduitService produitService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody Produit produit){
-        Produit produit1 = produitService.createProduit(produit);
+    public ResponseEntity<?> createProduct(@RequestBody ProduitDTO produitDTO){
+        Produit produit1 = produitService.createProduit(produitDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(produit1);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateProduct(@RequestBody Produit produit){
-        Produit produit1 = produitService.createProduit(produit);
+    public ResponseEntity<?> updateProduct(@RequestBody ProduitDTO produitDTO){
+        Produit produit1 = produitService.updateProduit(produitDTO);
         return ResponseEntity.status(HttpStatus.OK).body(produit1);
     }
     @DeleteMapping("/delete/{id}")

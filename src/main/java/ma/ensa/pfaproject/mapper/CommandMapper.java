@@ -21,6 +21,7 @@ public class CommandMapper {
         this.clientRepository = clientRepository;
     }
 
+
     public CommandeDTO toCommandeDTO(Commande commande) {
         return CommandeDTO.builder()
                 .idClient(commande.getClient().getIdClient())
