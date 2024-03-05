@@ -36,12 +36,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduct(@PathVariable Long id){
-        Optional<Produit> produitOptional = produitService.getProduitById(id);
-        if(produitOptional.isPresent()){
-            Produit produit = produitOptional.get();
-            ResponseEntity.ok(produit);
-        }
-        return ResponseEntity.notFound().build();
+        Produit produit = produitService.getProduitById(id);
+        return ResponseEntity.ok(produit);
     }
 
     @GetMapping("/all")
