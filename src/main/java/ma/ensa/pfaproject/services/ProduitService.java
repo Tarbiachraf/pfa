@@ -9,8 +9,8 @@ public interface ProduitService {
     public Produit createProduit(Produit newproduit);
     public Produit updateProduit(Produit updatedProduit);
 
-    public boolean deleteProduit(Long id);
-    public Optional<Produit> getProduitById(Long id);
+    public void deleteProduit(Long id);
+    public Produit getProduitById(Long id);
     public List<Produit> getAllProduit();
 
 }

@@ -1,6 +1,9 @@
 package ma.ensa.pfaproject.services.servicesImp;
 
+import ma.ensa.pfaproject.constants.ErrorMessages;
+import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.entities.Produit;
+import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.repositories.ProductRepository;
 import ma.ensa.pfaproject.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +33,24 @@ public class ProduitServiceImp implements ProduitService {
             produit.setPrixUnitaireHT(updatedProduit.getPrixUnitaireHT());
             return productRepository.save(produit);
         }
-        return produit;
+        throw new RessourceNotFoundException(ResourceTypeConstant.PRODUCT,updatedProduit.getIdProduit(), ErrorMessages.ProductNotFoundMessage);
+
+        //return produit;
     }
 
 
     @Override
-    public boolean deleteProduit(Long id) {
+    public void deleteProduit(Long id) {
         if(productRepository.existsById(id)){
             productRepository.deleteById(id);
-            return true;
         }
-        return false;
+        throw new RessourceNotFoundException(ResourceTypeConstant.PRODUCT,id, ErrorMessages.ProductNotFoundMessage);
+
     }
 
     @Override
-    public Optional<Produit> getProduitById(Long id) {
-        return productRepository.findById(id);
+    public Produit getProduitById(Long id) {
+        return productRepository.findById(id).orElseThrow(()->new RessourceNotFoundException(ResourceTypeConstant.PRODUCT,id, ErrorMessages.ProductNotFoundMessage));
     }
 
     @Override
