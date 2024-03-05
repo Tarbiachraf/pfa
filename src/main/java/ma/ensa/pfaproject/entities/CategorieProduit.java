@@ -1,8 +1,7 @@
 package ma.ensa.pfaproject.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class CategorieProduit {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategorie;
     private String nomCategorie;
 
+    @JsonIgnoreProperties("categorieProduit")
     @OneToMany(mappedBy = "categorieProduit")
     private List<Produit> produitList;
 }

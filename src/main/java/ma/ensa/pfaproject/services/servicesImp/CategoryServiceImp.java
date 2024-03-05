@@ -30,6 +30,8 @@ public class CategoryServiceImp implements CategoryService {
         CategorieProduit categorieProduit = categoryRepository.findById(updatedCategory.getIdCategorie()).orElseThrow(()->{
            return new RessourceNotFoundException(ResourceTypeConstant.CATEGORY,updatedCategory.getIdCategorie(), ErrorMessages.CategoryNotFoundMessage);
         });
+        categorieProduit.setNomCategorie(updatedCategory.getNomCategorie());
+        categorieProduit = categoryRepository.save(categorieProduit);
         return categorieProduit;
     }
 
@@ -38,7 +40,9 @@ public class CategoryServiceImp implements CategoryService {
         if(categoryRepository.existsById(id)){
             categoryRepository.deleteById(id);
         }
-        throw new RessourceNotFoundException(ResourceTypeConstant.CATEGORY,id, ErrorMessages.CategoryNotFoundMessage);
+        else {
+            throw new RessourceNotFoundException(ResourceTypeConstant.CATEGORY,id, ErrorMessages.CategoryNotFoundMessage);
+        }
     }
 
     @Override

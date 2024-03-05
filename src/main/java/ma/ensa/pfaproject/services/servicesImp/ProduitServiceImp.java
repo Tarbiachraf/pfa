@@ -52,8 +52,9 @@ public class ProduitServiceImp implements ProduitService {
         if(productRepository.existsById(id)){
             productRepository.deleteById(id);
         }
-        throw new RessourceNotFoundException(ResourceTypeConstant.PRODUCT,id, ErrorMessages.ProductNotFoundMessage);
-
+        else {
+            throw new RessourceNotFoundException(ResourceTypeConstant.PRODUCT, id, ErrorMessages.ProductNotFoundMessage);
+        }
     }
 
     @Override

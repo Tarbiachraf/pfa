@@ -44,7 +44,9 @@ public class CommandeServiceImp implements CommandeService {
         if(commandeRepository.existsById(id)){
             commandeRepository.deleteById(id);
         }
-        throw new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,id, ErrorMessages.CommandeNotFoundMessage);
+        else{
+            throw new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,id, ErrorMessages.CommandeNotFoundMessage);
+        }
     }
 
     @Override

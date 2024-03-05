@@ -1,5 +1,8 @@
 package ma.ensa.pfaproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,9 +30,11 @@ public class Produit {
 
     private String details;
 
+    @JsonIgnoreProperties("produit")
     @OneToMany(mappedBy = "produit")
     List<LigneCommande> ligneCommandes;
 
+    @JsonIgnoreProperties("produitList")
     @ManyToOne
     private CategorieProduit categorieProduit;
 }

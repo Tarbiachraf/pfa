@@ -45,7 +45,9 @@ public class ClientServiceImp implements ClientService {
         if(clientRepository.existsById(id)){
             clientRepository.deleteById(id);
         }
-        throw new RessourceNotFoundException(ResourceTypeConstant.CLIENT,id, ErrorMessages.ClientNotFoundMessage);
+        else {
+            throw new RessourceNotFoundException(ResourceTypeConstant.CLIENT,id, ErrorMessages.ClientNotFoundMessage);
+        }
 
     }
 

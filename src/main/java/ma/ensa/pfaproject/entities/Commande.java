@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCommande;
 
+
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date dateCommande;
     private Date dateReglement;
@@ -29,8 +31,11 @@ public class Commande {
     @Builder.Default
     private StatusCommande statusCde = StatusCommande.NON_TRAITE;
 
+    @JsonIgnoreProperties("commandes")
     @ManyToOne
     private Client client;
+
+    @JsonIgnoreProperties("commande")
     @OneToMany(mappedBy = "commande")
     private List<LigneCommande> ligneCommandes;
 }

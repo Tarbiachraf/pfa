@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class Client {
     private String tel;
 
     private String eMail;
-
+    @JsonIgnoreProperties("client")
     @OneToMany(mappedBy = "client")
     private List<Commande> commandes;
 
