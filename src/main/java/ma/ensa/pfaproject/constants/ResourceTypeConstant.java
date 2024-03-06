@@ -7,4 +7,5 @@ public class ResourceTypeConstant {
     public static final String CATEGORY = "Categorie";
 
 
+    public static final String LIGNECOMMAND = "LigneCommande";
 }

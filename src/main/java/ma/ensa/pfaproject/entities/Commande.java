@@ -35,7 +35,7 @@ public class Commande {
     @ManyToOne
     private Client client;
 
-    @JsonIgnoreProperties("commande")
+    @JsonIgnoreProperties("commandes")
     @OneToMany(mappedBy = "commande")
     private List<LigneCommande> ligneCommandes;
 }

@@ -9,6 +9,5 @@ public class ErrorMessages {
     public static final String CategoryNotFoundMessage = "le categorie n'existe pas dans la base de donnée";
 
 
-
-
+    public static String LigneCommandNotFoundMessage= "la ligne de la commande n'existe pas dans la base de donnée";
 }

@@ -24,7 +24,7 @@ public class ClientController {
     }
     @PutMapping("/update")
     public ResponseEntity<?> updateClient(@RequestBody Client client){
-        Client client1  = clientService.createClient(client);
+        Client client1  = clientService.updateClient(client);
         return ResponseEntity.status(HttpStatus.OK).body(client1);
     }
 

@@ -4,9 +4,11 @@ import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.entities.Commande;
+import ma.ensa.pfaproject.entities.LigneCommande;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.mapper.CommandMapper;
 import ma.ensa.pfaproject.repositories.CommandeRepository;
+import ma.ensa.pfaproject.repositories.LigneCommandeRepository;
 import ma.ensa.pfaproject.services.CommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,9 +23,16 @@ public class CommandeServiceImp implements CommandeService {
     private CommandeRepository commandeRepository;
 
     @Autowired
+    private LigneCommandeRepository ligneCommandeRepository;
+
+    @Autowired
     private CommandMapper commandMapper;
     @Override
     public Commande createCommande(CommandeDTO newCommandeDto) {
+        List<LigneCommande> ligneCommandes = newCommandeDto.getLigneCommande();
+        for(LigneCommande l:ligneCommandes){
+            ligneCommandeRepository.save(l);
+        }
         Commande commande = commandMapper.toCommande(newCommandeDto);
         return commandeRepository.save(commande);
     }
@@ -35,6 +44,7 @@ public class CommandeServiceImp implements CommandeService {
         commande.setDateCommande(Updatedcommande.getDateCommande());
         commande.setMontantTotal(Updatedcommande.getMontantTotal());
         commande.setStatusCde(Updatedcommande.getStatusCde());
+
         commande.setLigneCommandes(Updatedcommande.getLigneCommandes());
         return commande;
     }
