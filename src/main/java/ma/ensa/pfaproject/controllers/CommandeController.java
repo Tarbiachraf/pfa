@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.controllers;
 
+import jakarta.transaction.Transactional;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Commande;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CommandeController {
     @Autowired
     private CommandeService commandeService;
+    @Transactional
     @PostMapping("/create")
     public ResponseEntity<?> createCommande(@RequestBody CommandeDTO commandeDTO){
         Commande commande = commandeService.createCommande(commandeDTO);

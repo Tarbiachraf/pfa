@@ -26,15 +26,20 @@ public class CommandeServiceImp implements CommandeService {
     private LigneCommandeRepository ligneCommandeRepository;
 
     @Autowired
+    private LigneCommandService ligneCommandService;
+
+    @Autowired
     private CommandMapper commandMapper;
     @Override
     public Commande createCommande(CommandeDTO newCommandeDto) {
         List<LigneCommande> ligneCommandes = newCommandeDto.getLigneCommande();
+        Commande commande = commandMapper.toCommande(newCommandeDto);
+        Commande savedCommande = commandeRepository.save(commande);
         for(LigneCommande l:ligneCommandes){
+            l.setCommande(savedCommande);
             ligneCommandeRepository.save(l);
         }
-        Commande commande = commandMapper.toCommande(newCommandeDto);
-        return commandeRepository.save(commande);
+        return savedCommande;
     }
 
     @Override
@@ -45,18 +50,19 @@ public class CommandeServiceImp implements CommandeService {
         commande.setMontantTotal(Updatedcommande.getMontantTotal());
         commande.setStatusCde(Updatedcommande.getStatusCde());
 
+        commande.getLigneCommandes().clear();
         commande.setLigneCommandes(Updatedcommande.getLigneCommandes());
-        return commande;
+        return commandeRepository.save(commande);
     }
 
     @Override
     public void deleteCommande(Long id) {
-        if(commandeRepository.existsById(id)){
-            commandeRepository.deleteById(id);
-        }
-        else{
-            throw new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,id, ErrorMessages.CommandeNotFoundMessage);
-        }
+        Commande commande = commandeRepository.findById(id)
+                .orElseThrow(() -> new RessourceNotFoundException(ResourceTypeConstant.COMMANDE, id, ErrorMessages.CommandeNotFoundMessage));
+
+        ligneCommandeRepository.deleteById(commande.getIdCommande());
+
+        commandeRepository.delete(commande);
     }
 
     @Override
