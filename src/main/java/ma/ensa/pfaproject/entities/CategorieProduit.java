@@ -18,6 +18,8 @@ public class CategorieProduit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategorie;
+
+    @Column(unique = true)
     private String nomCategorie;
 
     @JsonIgnoreProperties("categorieProduit")

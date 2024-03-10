@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -72,6 +73,28 @@ public class CommandeServiceImp implements CommandeService {
 
     @Override
     public List<Commande> getAllCommandes() {
-        return commandeRepository.findAll();
+        List<Commande> commandeList = commandeRepository.findAll();
+        if(commandeList == null){
+            return Collections.emptyList();
+        }
+        return commandeList;
+    }
+
+    @Override
+    public List<Commande> getAllCommandesByClientNom(String clientNom) {
+        List<Commande> commandeList = commandeRepository.findByClientCommandeNomClient(clientNom);
+        if(commandeList == null){
+            return Collections.emptyList();
+        }
+        return commandeList;
+    }
+
+    @Override
+    public List<Commande> getAllCommandesByClientId(Long clientId) {
+        List<Commande> commandeList = commandeRepository.findByClientCommandeIdClient(clientId);
+        if(commandeList == null){
+            return Collections.emptyList();
+        }
+        return commandeList;
     }
 }

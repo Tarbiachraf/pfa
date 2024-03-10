@@ -19,6 +19,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idClient;
+
     private String nomClient;
 
     private String prenomClient;

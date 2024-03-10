@@ -12,4 +12,6 @@ public interface ClientService {
     public void deleteClient(Long id);
     public Client getClientById(Long id);
     public List<Client> getAllClients();
+
+    public List<Client> getAllClientsByNom(String key);
 }

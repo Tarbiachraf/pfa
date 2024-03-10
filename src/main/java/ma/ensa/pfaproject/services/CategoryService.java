@@ -12,4 +12,6 @@ public interface CategoryService {
     public void deleteCategory(Long id);
     public CategorieProduit getCategoryById(Long id);
     public List<CategorieProduit> getAllCategory();
+
+    public List<CategorieProduit> getAllCategoryByNomContainingKey(String key);
 }

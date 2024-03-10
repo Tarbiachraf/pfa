@@ -10,6 +10,7 @@ import ma.ensa.pfaproject.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -59,6 +60,19 @@ public class ClientServiceImp implements ClientService {
 
     @Override
     public List<Client> getAllClients() {
-        return clientRepository.findAll();
+        List<Client> clientList = clientRepository.findAll();
+        if(clientList == null){
+            return Collections.emptyList();
+        }
+        return clientList;
+    }
+
+    @Override
+    public List<Client> getAllClientsByNom(String key) {
+        List<Client> clientList = clientRepository.getAllClientsByNomContainingKey(key);
+        if(clientList == null){
+            return Collections.emptyList();
+        }
+        return clientList;
     }
 }

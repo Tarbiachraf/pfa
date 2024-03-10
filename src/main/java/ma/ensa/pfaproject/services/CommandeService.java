@@ -13,4 +13,8 @@ public interface CommandeService {
     public void deleteCommande(Long id);
     public Commande getCommandeById(Long id);
     public List<Commande> getAllCommandes();
+
+    public List<Commande> getAllCommandesByClientNom(String clientNom);
+
+    public List<Commande> getAllCommandesByClientId(Long clientId);
 }

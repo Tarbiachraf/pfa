@@ -10,6 +10,7 @@ import ma.ensa.pfaproject.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -52,6 +53,19 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public List<CategorieProduit> getAllCategory() {
-        return categoryRepository.findAll();
+        List<CategorieProduit> categorieProduitList = categoryRepository.findAll();
+        if(categorieProduitList == null){
+            return Collections.emptyList();
+        }
+        return categorieProduitList;
+    }
+
+    @Override
+    public List<CategorieProduit> getAllCategoryByNomContainingKey(String key) {
+        List<CategorieProduit> categorieProduitList = categoryRepository.getAllCategorieProduitsByNomContainingKey(key);
+        if(categorieProduitList == null){
+            Collections.emptyList();
+        }
+        return categorieProduitList;
     }
 }
