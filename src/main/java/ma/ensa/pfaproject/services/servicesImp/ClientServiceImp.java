@@ -32,6 +32,7 @@ public class ClientServiceImp implements ClientService {
             client.setTel(updatedClient.getTel());
             client.setEMail(updatedClient.getEMail());
             client.setVille(updatedClient.getVille());
+            client.setSociete(updatedClient.getSociete());
             client.setCodePostal(updatedClient.getCodePostal());
             return clientRepository.save(client);
         }

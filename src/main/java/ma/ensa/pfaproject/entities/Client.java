@@ -32,6 +32,9 @@ public class Client {
     private String tel;
 
     private String eMail;
+
+    private String societe;
+
     @JsonIgnoreProperties("client")
     @OneToMany(mappedBy = "client")
     private List<Commande> commandes;
