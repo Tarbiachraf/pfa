@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommandeService {
     public Commande createCommande(CommandeDTO newCommandeDTO);
-    public Commande updateCommande(CommandeDTO updatedCommandeDto);
+    public Commande updateCommande(Long commandeId, CommandeDTO updatedCommandeDto);
 
     public void deleteCommande(Long id);
     public Commande getCommandeById(Long id);

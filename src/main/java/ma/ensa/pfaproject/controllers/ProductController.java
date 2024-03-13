@@ -1,6 +1,7 @@
 package ma.ensa.pfaproject.controllers;
 
 import ma.ensa.pfaproject.dtos.ProduitDTO;
+import ma.ensa.pfaproject.dtos.RechercheProduitDTO;
 import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RequestMapping("/api/Product")
 @RestController
 public class ProductController {
@@ -44,6 +46,12 @@ public class ProductController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllProducts(){
         List<Produit> produitList = produitService.getAllProduit();
+        return ResponseEntity.ok(produitList);
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<?> getAllProductsByNomAndCategorie(@RequestBody RechercheProduitDTO rechercheProduitDTO){
+        List<Produit> produitList = produitService.getAllProduitByNomContainingKeyAndCategorieId(rechercheProduitDTO.getProduitNom(),rechercheProduitDTO.getIdCategorie());
         return ResponseEntity.ok(produitList);
     }
 

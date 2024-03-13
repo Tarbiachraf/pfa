@@ -12,6 +12,8 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Component
 public class CommandMapper {
     private final ClientRepository clientRepository;
@@ -21,12 +23,17 @@ public class CommandMapper {
         this.clientRepository = clientRepository;
     }
 
+    @Autowired
+    private LigneCommandMapper ligneCommandMapper;
 
     public CommandeDTO toCommandeDTO(Commande commande) {
         return CommandeDTO.builder()
                 .idClient(commande.getClient().getIdClient())
-                .ligneCommande(commande.getLigneCommandes())
+                .ligneCommandes(commande.getLigneCommandes().stream().map(ligneCommande -> ligneCommandMapper.toLigneCommandeDTO(ligneCommande)).collect(Collectors.toList()))
                 .montantTotal(commande.getMontantTotal())
+                .dateReglement(commande.getDateReglement())
+                .status(commande.getStatusCde())
+                .dateCommande(commande.getDateCommande())
                 .build();
     }
 
@@ -36,8 +43,11 @@ public class CommandMapper {
 
         return Commande.builder()
                 .client(client)
-                .ligneCommandes(commandeDto.getLigneCommande())
+                .ligneCommandes(commandeDto.getLigneCommandes().stream().map(ligneCommandeDto -> ligneCommandMapper.toLigneCommande(ligneCommandeDto)).collect(Collectors.toList()))
                 .montantTotal(commandeDto.getMontantTotal())
+                .dateReglement(commandeDto.getDateReglement())
+                .statusCde(commandeDto.getStatus())
+                .dateCommande(commandeDto.getDateCommande())
                 .build();
     }
 }

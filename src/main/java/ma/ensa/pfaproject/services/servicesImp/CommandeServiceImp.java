@@ -33,9 +33,9 @@ public class CommandeServiceImp implements CommandeService {
     private CommandMapper commandMapper;
     @Override
     public Commande createCommande(CommandeDTO newCommandeDto) {
-        List<LigneCommande> ligneCommandes = newCommandeDto.getLigneCommande();
         Commande commande = commandMapper.toCommande(newCommandeDto);
         Commande savedCommande = commandeRepository.save(commande);
+        List<LigneCommande> ligneCommandes = commande.getLigneCommandes();
         for(LigneCommande l:ligneCommandes){
             l.setCommande(savedCommande);
             ligneCommandeRepository.save(l);
@@ -44,15 +44,17 @@ public class CommandeServiceImp implements CommandeService {
     }
 
     @Override
-    public Commande updateCommande(CommandeDTO updatedCommandeDto) {
-        Commande Updatedcommande = commandMapper.toCommande(updatedCommandeDto);
-        Commande commande = commandeRepository.findById(Updatedcommande.getIdCommande()).orElseThrow(()-> new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,Updatedcommande.getIdCommande(), ErrorMessages.CommandeNotFoundMessage));
-        commande.setDateCommande(Updatedcommande.getDateCommande());
-        commande.setMontantTotal(Updatedcommande.getMontantTotal());
-        commande.setStatusCde(Updatedcommande.getStatusCde());
+    public Commande updateCommande(Long commandeId,CommandeDTO updatedCommandeDto) {
+        Commande updatedcommande = commandMapper.toCommande(updatedCommandeDto);
+        Commande commande = commandeRepository.findById(commandeId).orElseThrow(()-> new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,commandeId, ErrorMessages.CommandeNotFoundMessage));
+
+//        commande.setMontantTotal(updatedcommande.getMontantTotal());
+        commande.setStatusCde(updatedcommande.getStatusCde());
+
+        commande.setDateReglement(updatedcommande.getDateReglement());
 
         commande.getLigneCommandes().clear();
-        commande.setLigneCommandes(Updatedcommande.getLigneCommandes());
+        commande.setLigneCommandes(updatedcommande.getLigneCommandes());
         return commandeRepository.save(commande);
     }
 
@@ -61,7 +63,7 @@ public class CommandeServiceImp implements CommandeService {
         Commande commande = commandeRepository.findById(id)
                 .orElseThrow(() -> new RessourceNotFoundException(ResourceTypeConstant.COMMANDE, id, ErrorMessages.CommandeNotFoundMessage));
 
-        ligneCommandeRepository.deleteById(commande.getIdCommande());
+        ligneCommandeRepository.deleteAllByCommande(commande);
 
         commandeRepository.delete(commande);
     }
@@ -82,7 +84,7 @@ public class CommandeServiceImp implements CommandeService {
 
     @Override
     public List<Commande> getAllCommandesByClientNom(String clientNom) {
-        List<Commande> commandeList = commandeRepository.findByClientCommandeNomClient(clientNom);
+        List<Commande> commandeList = commandeRepository.getAllCommandesByClientContainingKey(clientNom);
         if(commandeList == null){
             return Collections.emptyList();
         }
@@ -91,7 +93,7 @@ public class CommandeServiceImp implements CommandeService {
 
     @Override
     public List<Commande> getAllCommandesByClientId(Long clientId) {
-        List<Commande> commandeList = commandeRepository.findByClientCommandeIdClient(clientId);
+        List<Commande> commandeList = commandeRepository.findAll();
         if(commandeList == null){
             return Collections.emptyList();
         }

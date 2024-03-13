@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/category")
 public class CategorieController {
@@ -44,5 +45,10 @@ public class CategorieController {
     public ResponseEntity<?> getAllCategoris(){
         List<CategorieProduit> categorieProduits = categoryService.getAllCategory();
         return ResponseEntity.ok(categorieProduits);
+    }
+    @GetMapping("/recherche")
+    public ResponseEntity<?> getAllCategoris(String nomCategorie){
+        List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(nomCategorie);
+        return ResponseEntity.ok(categorieProduitList);
     }
 }

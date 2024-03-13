@@ -19,5 +19,5 @@ public class ProduitDTO {
 
     private String details;
 
-    private String category;
+    private Long category;
 }

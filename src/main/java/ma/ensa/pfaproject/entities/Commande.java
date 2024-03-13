@@ -21,15 +21,13 @@ public class Commande {
     private Long idCommande;
 
 
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Date dateCommande;
     private Date dateReglement;
     //private String moyenPayement;
     private double montantTotal;
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private StatusCommande statusCde = StatusCommande.NON_TRAITE;
+    private StatusCommande statusCde;
 
     @JsonIgnoreProperties("commandes")
     @ManyToOne

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/commande")
 public class CommandeController {
@@ -24,12 +25,13 @@ public class CommandeController {
         Commande commande = commandeService.createCommande(commandeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(commande);
     }
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCommande(@RequestBody CommandeDTO commandeDTO){
-        Commande commande  = commandeService.updateCommande(commandeDTO);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCommande(@PathVariable Long commandeId,@RequestBody CommandeDTO commandeDTO){
+        Commande commande  = commandeService.updateCommande(commandeId,commandeDTO);
         return ResponseEntity.status(HttpStatus.OK).body(commande);
     }
 
+    @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCommande(@PathVariable Long id){
         commandeService.deleteCommande(id);
@@ -44,6 +46,12 @@ public class CommandeController {
     @GetMapping("/all")
     public ResponseEntity<?> getCommandes(){
         List<Commande> commandeList = commandeService.getAllCommandes();
+        return ResponseEntity.status(HttpStatus.OK).body(commandeList);
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<?> getCommandes(@RequestBody String clientNomkey){
+        List<Commande> commandeList = commandeService.getAllCommandesByClientNom(clientNomkey);
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
 }

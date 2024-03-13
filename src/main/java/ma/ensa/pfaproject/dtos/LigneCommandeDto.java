@@ -1,7 +1,12 @@
 package ma.ensa.pfaproject.dtos;
 
-public class LigneCommandeDto {
-    private Long idCommande;
+import lombok.Builder;
+import lombok.Data;
 
+@Builder
+@Data
+public class LigneCommandeDto {
     private Long idProduit;
+
+    private int quantite;
 }

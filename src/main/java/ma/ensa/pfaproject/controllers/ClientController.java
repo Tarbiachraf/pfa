@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/client")
 public class ClientController {
@@ -40,8 +41,14 @@ public class ClientController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllProducts(){
+    public ResponseEntity<?> getAllClients(){
         List<Client> clientList = clientService.getAllClients();
+        return ResponseEntity.ok(clientList);
+    }
+
+    @GetMapping("/recherche")
+    public ResponseEntity<?> getAllClientsByNomContainingKey(@RequestBody String key){
+        List<Client> clientList = clientService.getAllClientsByNom(key);
         return ResponseEntity.ok(clientList);
     }
 }

@@ -24,7 +24,7 @@ public class Client {
 
     private String prenomClient;
 
-    private String CodePostal;
+    private String codePostal;
 
     private String ville;
 
@@ -32,7 +32,7 @@ public class Client {
 
     private String tel;
 
-    private String eMail;
+    private String email;
 
     private String societe;
 

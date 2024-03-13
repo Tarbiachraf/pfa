@@ -35,7 +35,7 @@ public class ProduitMapper {
             return null;
         }
         return ProduitDTO.builder()
-                .category(produit.getCategorieProduit().getNomCategorie())
+                .category(produit.getCategorieProduit().getIdCategorie())
                 .nomProd(produit.getNomProd())
                 .details(produit.getDetails())
                 .prixUnitaireHT(produit.getPrixUnitaireHT())
@@ -44,7 +44,7 @@ public class ProduitMapper {
     }
     public Produit toProduit(ProduitDTO produitDTO){
 
-        CategorieProduit categorieProduit = categoryRepository.findByNomCategorie(produitDTO.getCategory());
+        CategorieProduit categorieProduit = categoryRepository.findById(produitDTO.getCategory()).get();
 
 
         if(produitDTO==null){

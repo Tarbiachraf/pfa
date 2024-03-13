@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LigneCommandeRepository extends JpaRepository<LigneCommande,Long> {
-    void deleteByCommande(Commande commande);
+    void deleteAllByCommande(Commande commande);
 }
