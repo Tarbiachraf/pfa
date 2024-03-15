@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryService {
     public CategorieProduit createCategory(String nom);
-    public CategorieProduit updateCategory(Long id, CategorieProduit updatedCategory);
+    public CategorieProduit updateCategory(CategorieProduit updatedCategory);
 
     public void deleteCategory(Long id);
     public CategorieProduit getCategoryById(Long id);

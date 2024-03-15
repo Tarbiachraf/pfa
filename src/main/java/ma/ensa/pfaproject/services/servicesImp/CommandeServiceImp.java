@@ -104,4 +104,4 @@ public class CommandeServiceImp implements CommandeService {
         }
         return commandeList.stream().map(commande -> commandResponseMapper.toCommandeResponse(commande)).collect(Collectors.toList());
     }
-}
+ }

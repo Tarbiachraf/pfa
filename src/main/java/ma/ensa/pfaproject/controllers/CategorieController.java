@@ -25,9 +25,9 @@ public class CategorieController {
         CategorieProduit categorieProduit = categoryService.createCategory(newcategorieProduit.getNomCategorie());
         return ResponseEntity.status(HttpStatus.CREATED).body(categorieProduit);
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long id,@RequestBody CategorieProduit categorieProduit){
-        CategorieProduit categorieProduit1  = categoryService.updateCategory(id,categorieProduit);
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCategory(@RequestBody CategorieProduit categorieProduit){
+        CategorieProduit categorieProduit1  = categoryService.updateCategory(categorieProduit);
         return ResponseEntity.status(HttpStatus.OK).body(categorieProduit1);
     }
 
@@ -47,9 +47,9 @@ public class CategorieController {
         List<CategorieProduit> categorieProduits = categoryService.getAllCategory();
         return ResponseEntity.ok(categorieProduits);
     }
-    @PostMapping("/recherche")
-    public ResponseEntity<?> getAllCategoris(@RequestBody RechercheCategorieDto rechercheCategorieDto){
-        List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(rechercheCategorieDto.getNomCategorie());
+    @GetMapping("/recherche/{nomCategorie}")
+    public ResponseEntity<?> getAllCategoris(@PathVariable String nomCategorie){
+        List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(nomCategorie);
         return ResponseEntity.ok(categorieProduitList);
     }
 }
