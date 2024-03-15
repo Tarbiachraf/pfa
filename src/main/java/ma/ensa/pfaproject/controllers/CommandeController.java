@@ -56,4 +56,5 @@ public class CommandeController {
         List<CommandResponse> commandeList = commandeService.getAllCommandesByClientNom(rechercheClientDto.getNomClient());
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
+
 }

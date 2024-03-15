@@ -51,5 +51,6 @@ public class CategorieController {
     public ResponseEntity<?> getAllCategoris(@PathVariable String nomCategorie){
         List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(nomCategorie);
         return ResponseEntity.ok(categorieProduitList);
+        //rachiid l7maare ttamoo7
     }
 }
