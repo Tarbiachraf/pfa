@@ -27,10 +27,10 @@ public class ProduitMapper {
 
     @Autowired
     public ProduitMapper(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+            this.categoryRepository = categoryRepository;
+        }
 
-    public ProduitDTO toProduitDTO(Produit produit){
+        public ProduitDTO toProduitDTO(Produit produit){
         if(produit==null){
             return null;
         }

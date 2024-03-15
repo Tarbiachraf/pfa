@@ -3,10 +3,12 @@ package ma.ensa.pfaproject.services.servicesImp;
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.dtos.ProduitDTO;
+import ma.ensa.pfaproject.dtos.ProduitResponse;
 import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.exceptions.ResourceAlreadyExistException;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.mapper.ProduitMapper;
+import ma.ensa.pfaproject.mapper.ProduitMapperForResponse;
 import ma.ensa.pfaproject.repositories.ProductRepository;
 import ma.ensa.pfaproject.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProduitServiceImp implements ProduitService {
@@ -23,6 +26,9 @@ public class ProduitServiceImp implements ProduitService {
 
     @Autowired
     private ProduitMapper produitMapper;
+
+    @Autowired
+    private ProduitMapperForResponse produitMapperForResponse;
 
     @Override
     public Produit createProduit(ProduitDTO newproduit) {
@@ -44,7 +50,7 @@ public class ProduitServiceImp implements ProduitService {
             produit.setPrixUnitaireHT(updatedProduit.getPrixUnitaireHT());
             produit.setCategorieProduit(produit1.getCategorieProduit());
 
-            return productRepository.save(produit1);
+            return productRepository.save(produit);
         }
         throw new RessourceNotFoundException(ResourceTypeConstant.PRODUCT,updatedProduit.getRefProd(), ErrorMessages.ProductNotFoundMessage);
 
@@ -68,21 +74,21 @@ public class ProduitServiceImp implements ProduitService {
     }
 
     @Override
-    public List<Produit> getAllProduit() {
+    public List<ProduitResponse> getAllProduit() {
         List<Produit> produitList = productRepository.findAll();
         if(produitList == null){
             return Collections.emptyList();
         }
-        return produitList;
+        return produitList.stream().map(produit -> produitMapperForResponse.toProduitResponse(produit)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Produit> getAllProduitByNomContainingKey(String key) {
+    public List<ProduitResponse> getAllProduitByNomContainingKey(String key) {
         List<Produit> produitList = productRepository.getAllProduitsByNomContainingKey(key);
         if(produitList == null){
             return Collections.emptyList();
         }
-        return produitList;
+        return produitList.stream().map(produit -> produitMapperForResponse.toProduitResponse(produit)).collect(Collectors.toList());
 
     }
 
@@ -96,21 +102,21 @@ public class ProduitServiceImp implements ProduitService {
     }
 
     @Override
-    public List<Produit> getAllProduitByCategorie(String categorieNom) {
+    public List<ProduitResponse> getAllProduitByCategorie(String categorieNom) {
         List<Produit> produitList = productRepository.findByCategorieProduitNomCategorie(categorieNom);
         if(produitList == null){
             return Collections.emptyList();
         }
-        return produitList;
+        return produitList.stream().map(produit -> produitMapperForResponse.toProduitResponse(produit)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Produit> getAllProduitByNomContainingKeyAndCategorieId(String key, Long id) {
+    public List<ProduitResponse> getAllProduitByNomContainingKeyAndCategorieId(String key, Long id) {
         List<Produit> produitList = productRepository.getAllProduitsByNomContainingKeyAndCategorie(key,id);
         if(produitList == null){
             return Collections.emptyList();
         }
-        return produitList;
+        return produitList.stream().map(produit -> produitMapperForResponse.toProduitResponse(produit)).collect(Collectors.toList());
     }
 
 
