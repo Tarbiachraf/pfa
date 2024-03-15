@@ -2,20 +2,22 @@ package ma.ensa.pfaproject.services.servicesImp;
 
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
+import ma.ensa.pfaproject.dtos.CommandResponse;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.entities.Commande;
 import ma.ensa.pfaproject.entities.LigneCommande;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.mapper.CommandMapper;
+import ma.ensa.pfaproject.mapper.CommandResponseMapper;
 import ma.ensa.pfaproject.repositories.CommandeRepository;
 import ma.ensa.pfaproject.repositories.LigneCommandeRepository;
 import ma.ensa.pfaproject.services.CommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommandeServiceImp implements CommandeService {
@@ -31,6 +33,9 @@ public class CommandeServiceImp implements CommandeService {
 
     @Autowired
     private CommandMapper commandMapper;
+
+    @Autowired
+    private CommandResponseMapper commandResponseMapper;
     @Override
     public Commande createCommande(CommandeDTO newCommandeDto) {
         Commande commande = commandMapper.toCommande(newCommandeDto);
@@ -83,20 +88,20 @@ public class CommandeServiceImp implements CommandeService {
     }
 
     @Override
-    public List<Commande> getAllCommandesByClientNom(String clientNom) {
+    public List<CommandResponse> getAllCommandesByClientNom(String clientNom) {
         List<Commande> commandeList = commandeRepository.getAllCommandesByClientContainingKey(clientNom);
         if(commandeList == null){
             return Collections.emptyList();
         }
-        return commandeList;
+        return commandeList.stream().map(commande -> commandResponseMapper.toCommandeResponse(commande)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Commande> getAllCommandesByClientId(Long clientId) {
+    public List<CommandResponse> getAllCommandesByClientId(Long clientId) {
         List<Commande> commandeList = commandeRepository.findAll();
         if(commandeList == null){
             return Collections.emptyList();
         }
-        return commandeList;
+        return commandeList.stream().map(commande -> commandResponseMapper.toCommandeResponse(commande)).collect(Collectors.toList());
     }
 }

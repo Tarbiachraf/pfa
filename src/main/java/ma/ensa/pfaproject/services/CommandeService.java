@@ -1,7 +1,7 @@
 package ma.ensa.pfaproject.services;
 
+import ma.ensa.pfaproject.dtos.CommandResponse;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
-import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Commande;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface CommandeService {
     public Commande getCommandeById(Long id);
     public List<Commande> getAllCommandes();
 
-    public List<Commande> getAllCommandesByClientNom(String clientNom);
+    public List<CommandResponse> getAllCommandesByClientNom(String clientNom);
 
-    public List<Commande> getAllCommandesByClientId(Long clientId);
+    public List<CommandResponse> getAllCommandesByClientId(Long clientId);
 }
