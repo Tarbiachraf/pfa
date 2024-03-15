@@ -1,6 +1,7 @@
 package ma.ensa.pfaproject.controllers;
 
 import ma.ensa.pfaproject.dtos.ProduitDTO;
+import ma.ensa.pfaproject.dtos.ProduitResponse;
 import ma.ensa.pfaproject.dtos.RechercheProduitDTO;
 import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.services.ProduitService;
@@ -45,14 +46,47 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllProducts(){
-        List<Produit> produitList = produitService.getAllProduit();
+        List<ProduitResponse> produitList = produitService.getAllProduit();
         return ResponseEntity.ok(produitList);
     }
 
     @PostMapping("/recherche")
     public ResponseEntity<?> getAllProductsByNomAndCategorie(@RequestBody RechercheProduitDTO rechercheProduitDTO){
-        List<Produit> produitList = produitService.getAllProduitByNomContainingKeyAndCategorieId(rechercheProduitDTO.getProduitNom(),rechercheProduitDTO.getIdCategorie());
+        List<ProduitResponse> produitList = produitService.getAllProduitByNomContainingKeyAndCategorieId(rechercheProduitDTO.getProduitNom(),rechercheProduitDTO.getIdCategorie());
         return ResponseEntity.ok(produitList);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/rechercheByCategorie/{nomCategorie}")
+    public ResponseEntity<?> getAllProductsByCategorie(@PathVariable String nomCategorie){
+        List<ProduitResponse> produitList = produitService.getAllProduitByCategorie(nomCategorie);
+        return ResponseEntity.ok(produitList);
+    }
+    @GetMapping("/rechercheByName/{nomProd}")
+    public ResponseEntity<?> getAllProductsByNom(@PathVariable String nomProd){
+        List<ProduitResponse> produitList = produitService.getAllProduitByNomContainingKey(nomProd);
+        return ResponseEntity.ok(produitList);
+    }
+
 
 }

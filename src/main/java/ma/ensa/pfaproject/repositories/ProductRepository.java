@@ -28,7 +28,7 @@ public interface ProductRepository extends JpaRepository<Produit,Long> {
     List<Produit> getAllProduitsByNomContainingKeyAndCategorie(@Param("key") String key, @Param("nomCategorie") String nomCategorie);
 
     //rechercher par key et nom du catégorie
-    @Query("SELECT p FROM Produit p JOIN p.categorieProduit c WHERE p.nomProd LIKE %:key% AND c.idCategorie = :idCategorie")
+    @Query("SELECT p FROM Produit p JOIN p.categorieProduit c WHERE p.nomProd LIKE %:key% OR c.idCategorie = :idCategorie")
     List<Produit> getAllProduitsByNomContainingKeyAndCategorie(@Param("key") String key, @Param("idCategorie") Long idCategorie);
 
     @Query("SELECT p FROM Produit p JOIN p.categorieProduit c WHERE p.nomProd LIKE %:key% OR c.nomCategorie = :nomCategorie")
