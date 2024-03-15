@@ -1,6 +1,7 @@
 package ma.ensa.pfaproject.controllers;
 
 import jakarta.transaction.Transactional;
+import ma.ensa.pfaproject.dtos.CommandResponse;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.dtos.RechercheClientDto;
 import ma.ensa.pfaproject.entities.Client;
@@ -52,7 +53,7 @@ public class CommandeController {
 
     @PostMapping("/recherche")
     public ResponseEntity<?> getCommandes(@RequestBody RechercheClientDto rechercheClientDto){
-        List<Commande> commandeList = commandeService.getAllCommandesByClientNom(rechercheClientDto.getNomClient());
+        List<CommandResponse> commandeList = commandeService.getAllCommandesByClientNom(rechercheClientDto.getNomClient());
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
 }
