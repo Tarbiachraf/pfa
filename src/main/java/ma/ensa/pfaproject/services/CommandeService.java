@@ -12,7 +12,7 @@ public interface CommandeService {
 
     public void deleteCommande(Long id);
     public Commande getCommandeById(Long id);
-    public List<Commande> getAllCommandes();
+    public List<CommandResponse> getAllCommandes();
 
     public List<CommandResponse> getAllCommandesByClientNom(String clientNom);
 

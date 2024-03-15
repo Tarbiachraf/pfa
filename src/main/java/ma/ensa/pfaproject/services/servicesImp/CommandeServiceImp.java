@@ -79,12 +79,12 @@ public class CommandeServiceImp implements CommandeService {
     }
 
     @Override
-    public List<Commande> getAllCommandes() {
+    public List<CommandResponse> getAllCommandes() {
         List<Commande> commandeList = commandeRepository.findAll();
         if(commandeList == null){
             return Collections.emptyList();
         }
-        return commandeList;
+        return commandeList.stream().map(commande -> commandResponseMapper.toCommandeResponse(commande)).collect(Collectors.toList());
     }
 
     @Override

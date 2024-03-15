@@ -47,7 +47,7 @@ public class CommandeController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getCommandes(){
-        List<Commande> commandeList = commandeService.getAllCommandes();
+        List<CommandResponse> commandeList = commandeService.getAllCommandes();
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
 
