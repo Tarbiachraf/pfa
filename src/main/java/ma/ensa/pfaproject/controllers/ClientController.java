@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.controllers;
 
+import ma.ensa.pfaproject.dtos.RechercheClientDto;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.services.ClientService;
@@ -46,9 +47,9 @@ public class ClientController {
         return ResponseEntity.ok(clientList);
     }
 
-    @GetMapping("/recherche")
-    public ResponseEntity<?> getAllClientsByNomContainingKey(@RequestBody String key){
-        List<Client> clientList = clientService.getAllClientsByNom(key);
+    @PostMapping("/recherche")
+    public ResponseEntity<?> getAllClientsByNomContainingKey(@RequestBody RechercheClientDto rechercheClientDto){
+        List<Client> clientList = clientService.getAllClientsByNom(rechercheClientDto.getNomClient());
         return ResponseEntity.ok(clientList);
     }
 }

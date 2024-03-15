@@ -2,6 +2,7 @@ package ma.ensa.pfaproject.controllers;
 
 import jakarta.transaction.Transactional;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
+import ma.ensa.pfaproject.dtos.RechercheClientDto;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Commande;
 import ma.ensa.pfaproject.repositories.CommandeRepository;
@@ -49,9 +50,9 @@ public class CommandeController {
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
 
-    @GetMapping("/recherche")
-    public ResponseEntity<?> getCommandes(@RequestBody String clientNomkey){
-        List<Commande> commandeList = commandeService.getAllCommandesByClientNom(clientNomkey);
+    @PostMapping("/recherche")
+    public ResponseEntity<?> getCommandes(@RequestBody RechercheClientDto rechercheClientDto){
+        List<Commande> commandeList = commandeService.getAllCommandesByClientNom(rechercheClientDto.getNomClient());
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
     }
 }

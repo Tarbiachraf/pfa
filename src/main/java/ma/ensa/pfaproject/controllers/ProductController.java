@@ -49,7 +49,7 @@ public class ProductController {
         return ResponseEntity.ok(produitList);
     }
 
-    @GetMapping("/recherche")
+    @PostMapping("/recherche")
     public ResponseEntity<?> getAllProductsByNomAndCategorie(@RequestBody RechercheProduitDTO rechercheProduitDTO){
         List<Produit> produitList = produitService.getAllProduitByNomContainingKeyAndCategorieId(rechercheProduitDTO.getProduitNom(),rechercheProduitDTO.getIdCategorie());
         return ResponseEntity.ok(produitList);

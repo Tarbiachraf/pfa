@@ -1,5 +1,6 @@
 package ma.ensa.pfaproject.controllers;
 
+import ma.ensa.pfaproject.dtos.RechercheCategorieDto;
 import ma.ensa.pfaproject.entities.CategorieProduit;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.services.CategoryService;
@@ -20,8 +21,8 @@ public class CategorieController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCategory(@RequestParam String nomCategorie){
-        CategorieProduit categorieProduit = categoryService.createCategory(nomCategorie);
+    public ResponseEntity<?> createCategory(@RequestBody CategorieProduit newcategorieProduit){
+        CategorieProduit categorieProduit = categoryService.createCategory(newcategorieProduit.getNomCategorie());
         return ResponseEntity.status(HttpStatus.CREATED).body(categorieProduit);
     }
     @PutMapping("/update/{id}")
@@ -46,9 +47,9 @@ public class CategorieController {
         List<CategorieProduit> categorieProduits = categoryService.getAllCategory();
         return ResponseEntity.ok(categorieProduits);
     }
-    @GetMapping("/recherche")
-    public ResponseEntity<?> getAllCategoris(String nomCategorie){
-        List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(nomCategorie);
+    @PostMapping("/recherche")
+    public ResponseEntity<?> getAllCategoris(@RequestBody RechercheCategorieDto rechercheCategorieDto){
+        List<CategorieProduit> categorieProduitList = categoryService.getAllCategoryByNomContainingKey(rechercheCategorieDto.getNomCategorie());
         return ResponseEntity.ok(categorieProduitList);
     }
 }
