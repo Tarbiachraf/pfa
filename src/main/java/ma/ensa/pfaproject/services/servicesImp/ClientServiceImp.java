@@ -3,7 +3,6 @@ package ma.ensa.pfaproject.services.servicesImp;
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.entities.Client;
-import ma.ensa.pfaproject.entities.Produit;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.repositories.ClientRepository;
 import ma.ensa.pfaproject.services.ClientService;
@@ -24,8 +23,8 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
-    public Client updateClient(Client updatedClient) {
-        Client client = clientRepository.findById(updatedClient.getIdClient()).get();
+    public Client updateClient(Long id, Client updatedClient) {
+        Client client = clientRepository.findById(id).get();
         if(client != null){
             client.setNomClient(updatedClient.getNomClient());
             client.setPrenomClient(updatedClient.getPrenomClient());

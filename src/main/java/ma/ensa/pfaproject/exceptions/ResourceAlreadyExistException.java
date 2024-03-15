@@ -2,7 +2,7 @@ package ma.ensa.pfaproject.exceptions;
 
 import java.time.LocalDateTime;
 
-public class DuplicateResourceException extends RuntimeException{
+public class ResourceAlreadyExistException extends RuntimeException{
     private String ressourceName;
 
     private Long ressourceId;
@@ -11,14 +11,14 @@ public class DuplicateResourceException extends RuntimeException{
     private String errorMessage;
     private LocalDateTime timestamp;
 
-    public DuplicateResourceException(String resourceType,String ressourceName ,String errorMessage) {
+    public ResourceAlreadyExistException(String resourceType, String ressourceName , String errorMessage) {
         super(errorMessage);
         this.ressourceName =ressourceName;
         this.resourceType = resourceType;
         this.errorMessage = errorMessage;
         this.timestamp = LocalDateTime.now();
     }
-    public DuplicateResourceException(String resourceType,Long ressourceId ,String errorMessage) {
+    public ResourceAlreadyExistException(String resourceType, Long ressourceId , String errorMessage) {
         super(errorMessage);
         this.ressourceId =ressourceId;
         this.resourceType = resourceType;

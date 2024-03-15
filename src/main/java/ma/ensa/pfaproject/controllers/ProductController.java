@@ -26,9 +26,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produit1);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateProduct(@RequestBody ProduitDTO produitDTO){
-        Produit produit1 = produitService.updateProduit(produitDTO);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long id,@RequestBody ProduitDTO produitDTO){
+        Produit produit1 = produitService.updateProduit(id,produitDTO);
         return ResponseEntity.status(HttpStatus.OK).body(produit1);
     }
     @DeleteMapping("/delete/{id}")

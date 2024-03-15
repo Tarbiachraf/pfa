@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProduitService {
     public Produit createProduit(ProduitDTO newproduit);
-    public Produit updateProduit(ProduitDTO updatedProduit);
+    public Produit updateProduit(Long id, ProduitDTO updatedProduit);
 
     public void deleteProduit(Long id);
     public Produit getProduitById(Long id);

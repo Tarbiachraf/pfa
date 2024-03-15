@@ -4,6 +4,7 @@ import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.dtos.ProduitDTO;
 import ma.ensa.pfaproject.entities.Produit;
+import ma.ensa.pfaproject.exceptions.ResourceAlreadyExistException;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.mapper.ProduitMapper;
 import ma.ensa.pfaproject.repositories.ProductRepository;
@@ -25,20 +26,23 @@ public class ProduitServiceImp implements ProduitService {
 
     @Override
     public Produit createProduit(ProduitDTO newproduit) {
+        if(productRepository.existsByRefProd(newproduit.getRefProd())){
+            throw new ResourceAlreadyExistException(ResourceTypeConstant.PRODUCT,newproduit.getRefProd(),ErrorMessages.ProductAlreadyExistMessage);
+        }
         Produit produit = produitMapper.toProduit(newproduit);
         return productRepository.save(produit);
     }
 
     @Override
-    public Produit updateProduit(ProduitDTO updatedProduit) {
-        Produit produit = productRepository.findByRefProd(updatedProduit.getRefProd()).get();
+    public Produit updateProduit(Long id, ProduitDTO updatedProduit) {
+        Produit produit = productRepository.findById(id).get();
+        Produit produit1 = produitMapper.toProduit(updatedProduit);
         if(produit!=null){
-            Produit produit1 = produitMapper.toProduit(updatedProduit);
-//            produit.setRefProd(updatedProduit.getRefProd());
-//            produit.setDetails(updatedProduit.getDetails());
-//            produit.setNomProd(updatedProduit.getNomProd());
-//            produit.setPrixUnitaireHT(updatedProduit.getPrixUnitaireHT());
-//            produit.setCategorieProduit(updatedProduit.getCategory());
+            produit.setRefProd(updatedProduit.getRefProd());
+            produit.setDetails(updatedProduit.getDetails());
+            produit.setNomProd(updatedProduit.getNomProd());
+            produit.setPrixUnitaireHT(updatedProduit.getPrixUnitaireHT());
+            produit.setCategorieProduit(produit1.getCategorieProduit());
 
             return productRepository.save(produit1);
         }

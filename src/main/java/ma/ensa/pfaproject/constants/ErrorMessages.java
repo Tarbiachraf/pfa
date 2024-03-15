@@ -10,4 +10,9 @@ public class ErrorMessages {
 
 
     public static String LigneCommandNotFoundMessage= "la ligne de la commande n'existe pas dans la base de donnée";
+
+    public static String ProductAlreadyExistMessage = "le produit possédant ce référence existe déja dans la base de donnée";
+
+    public static String ClientAlreadyExistMessage = "le client possédant ce numéro  existe déja dans la base de donnée";
+
 }

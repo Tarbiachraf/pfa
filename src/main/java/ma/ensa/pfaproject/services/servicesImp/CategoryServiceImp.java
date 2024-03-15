@@ -1,6 +1,5 @@
 package ma.ensa.pfaproject.services.servicesImp;
 
-import jdk.jfr.Category;
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.entities.CategorieProduit;
@@ -27,9 +26,9 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public CategorieProduit updateCategory(CategorieProduit updatedCategory) {
-        CategorieProduit categorieProduit = categoryRepository.findById(updatedCategory.getIdCategorie()).orElseThrow(()->{
-           return new RessourceNotFoundException(ResourceTypeConstant.CATEGORY,updatedCategory.getIdCategorie(), ErrorMessages.CategoryNotFoundMessage);
+    public CategorieProduit updateCategory(Long id, CategorieProduit updatedCategory) {
+        CategorieProduit categorieProduit = categoryRepository.findById(id).orElseThrow(()->{
+           return new RessourceNotFoundException(ResourceTypeConstant.CATEGORY,id, ErrorMessages.CategoryNotFoundMessage);
         });
         categorieProduit.setNomCategorie(updatedCategory.getNomCategorie());
         categorieProduit = categoryRepository.save(categorieProduit);

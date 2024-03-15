@@ -23,9 +23,9 @@ public class ClientController {
         Client client1 = clientService.createClient(client);
         return ResponseEntity.status(HttpStatus.CREATED).body(client1);
     }
-    @PutMapping("/update")
-    public ResponseEntity<?> updateClient(@RequestBody Client client){
-        Client client1  = clientService.updateClient(client);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateClient(@PathVariable Long id,@RequestBody Client client){
+        Client client1  = clientService.updateClient(id,client);
         return ResponseEntity.status(HttpStatus.OK).body(client1);
     }
 

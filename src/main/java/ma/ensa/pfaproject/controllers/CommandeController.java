@@ -37,7 +37,7 @@ public class CommandeController {
         commandeService.deleteCommande(id);
         return ResponseEntity.status(HttpStatus.OK).body("Commande supprimé avec succés");
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getCommande(@PathVariable Long id){
         Commande commande = commandeService.getCommandeById(id);
         return ResponseEntity.status(HttpStatus.OK).body(commande);

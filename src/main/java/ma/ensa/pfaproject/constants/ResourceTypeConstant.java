@@ -8,4 +8,5 @@ public class ResourceTypeConstant {
 
 
     public static final String LIGNECOMMAND = "LigneCommande";
+
 }

@@ -37,4 +37,6 @@ public interface ProductRepository extends JpaRepository<Produit,Long> {
     //rechercher par key ou nom du catégorie
     @Query("SELECT p FROM Produit p JOIN p.categorieProduit c WHERE p.nomProd LIKE %:key% OR c.idCategorie = :idCategorie")
     List<Produit> getAllProduitsByNomContainingKeyOrCategorie(@Param("key") String key, @Param("idCategorie") Long idCategorie);
+
+    boolean existsByRefProd(String ref);
 }

@@ -24,9 +24,9 @@ public class CategorieController {
         CategorieProduit categorieProduit = categoryService.createCategory(nomCategorie);
         return ResponseEntity.status(HttpStatus.CREATED).body(categorieProduit);
     }
-    @PutMapping("/update")
-    public ResponseEntity<?> updateCategory(@RequestBody CategorieProduit categorieProduit){
-        CategorieProduit categorieProduit1  = categoryService.updateCategory(categorieProduit);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCategory(@PathVariable Long id,@RequestBody CategorieProduit categorieProduit){
+        CategorieProduit categorieProduit1  = categoryService.updateCategory(id,categorieProduit);
         return ResponseEntity.status(HttpStatus.OK).body(categorieProduit1);
     }
 
