@@ -112,8 +112,17 @@ public class ProduitServiceImp implements ProduitService {
 
     @Override
     public List<ProduitResponse> getAllProduitByNomContainingKeyAndCategorieId(String key, Long id) {
-        List<Produit> produitList = productRepository.getAllProduitsByNomContainingKeyAndCategorie(key,id);
-        if(produitList == null){
+        List<Produit> produitList = null;
+        if (key != null && id != null && id != 0) {
+            produitList = productRepository.getAllProduitsByNomContainingKeyAndCategorie(key, id);
+        } else if (key != null && (id == null || id == 0)) {
+            produitList = productRepository.getAllProduitsByNomContainingKey(key);
+        } else if (key == null && id != null && id != 0) {
+            produitList = productRepository.getAllProduitsByCategorie(id);
+        } else {
+            produitList = productRepository.findAll();
+        }
+        if (produitList == null) {
             return Collections.emptyList();
         }
         return produitList.stream().map(produit -> produitMapperForResponse.toProduitResponse(produit)).collect(Collectors.toList());
