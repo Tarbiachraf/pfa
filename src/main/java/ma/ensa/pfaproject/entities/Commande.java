@@ -34,6 +34,6 @@ public class Commande {
     private Client client;
 
     @JsonIgnoreProperties("commandes")
-    @OneToMany(mappedBy = "commande")
+    @OneToMany(mappedBy = "commande",  cascade = CascadeType.ALL)
     private List<LigneCommande> ligneCommandes;
 }

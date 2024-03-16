@@ -5,6 +5,7 @@ import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Commande;
+import ma.ensa.pfaproject.entities.LigneCommande;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class CommandMapper {
         Client client = clientRepository.findById(commandeDto.getIdClient())
                 .orElseThrow(() -> new RessourceNotFoundException(ResourceTypeConstant.CLIENT,commandeDto.getIdClient(), ErrorMessages.ClientNotFoundMessage));
 
-        return Commande.builder()
+        Commande commande = Commande.builder()
                 .client(client)
                 .ligneCommandes(commandeDto.getLigneCommandes().stream().map(ligneCommandeDto -> ligneCommandMapper.toLigneCommande(ligneCommandeDto)).collect(Collectors.toList()))
                 .montantTotal(commandeDto.getMontantTotal())
@@ -49,6 +50,12 @@ public class CommandMapper {
                 .statusCde(commandeDto.getStatus())
                 .dateCommande(commandeDto.getDateCommande())
                 .build();
+
+        for (LigneCommande ligneCommande : commande.getLigneCommandes()) {
+            ligneCommande.setCommande(commande);
+        }
+
+        return commande;
     }
 }
 

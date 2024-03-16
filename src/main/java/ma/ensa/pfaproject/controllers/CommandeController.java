@@ -6,8 +6,10 @@ import ma.ensa.pfaproject.dtos.CommandeDTO;
 import ma.ensa.pfaproject.dtos.RechercheClientDto;
 import ma.ensa.pfaproject.entities.Client;
 import ma.ensa.pfaproject.entities.Commande;
+import ma.ensa.pfaproject.entities.LigneCommande;
 import ma.ensa.pfaproject.repositories.CommandeRepository;
 import ma.ensa.pfaproject.services.CommandeService;
+import ma.ensa.pfaproject.services.servicesImp.LigneCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ import java.util.List;
 public class CommandeController {
     @Autowired
     private CommandeService commandeService;
+
+    @Autowired
+    private LigneCommandService ligneCommandService;
     @Transactional
     @PostMapping("/create")
     public ResponseEntity<?> createCommande(@RequestBody CommandeDTO commandeDTO){
@@ -28,8 +33,8 @@ public class CommandeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commande);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateCommande(@PathVariable Long commandeId,@RequestBody CommandeDTO commandeDTO){
-        Commande commande  = commandeService.updateCommande(commandeId,commandeDTO);
+    public ResponseEntity<?> updateCommande(@PathVariable Long id,@RequestBody CommandeDTO commandeDTO){
+        Commande commande  = commandeService.updateCommande(id,commandeDTO);
         return ResponseEntity.status(HttpStatus.OK).body(commande);
     }
 
@@ -49,6 +54,11 @@ public class CommandeController {
     public ResponseEntity<?> getCommandes(){
         List<CommandResponse> commandeList = commandeService.getAllCommandes();
         return ResponseEntity.status(HttpStatus.OK).body(commandeList);
+    }
+    @GetMapping("/LignesCommandes/{id}")
+    public ResponseEntity<?> getLignesCommandesById(@PathVariable Long id){
+        List<LigneCommande> ligneCommandeList = ligneCommandService.getAllLigneCommandeById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(ligneCommandeList);
     }
 
     @PostMapping("/recherche")

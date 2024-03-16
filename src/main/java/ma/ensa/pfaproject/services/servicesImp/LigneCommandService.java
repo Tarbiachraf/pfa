@@ -2,8 +2,10 @@ package ma.ensa.pfaproject.services.servicesImp;
 
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
+import ma.ensa.pfaproject.entities.Commande;
 import ma.ensa.pfaproject.entities.LigneCommande;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
+import ma.ensa.pfaproject.repositories.CommandeRepository;
 import ma.ensa.pfaproject.repositories.LigneCommandeRepository;
 import ma.ensa.pfaproject.services.LigneCommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class LigneCommandService implements LigneCommandeService {
 
     @Autowired
     private LigneCommandeRepository ligneCommandeRepository;
+
+    @Autowired
+    private CommandeRepository commandeRepository;
 
     @Override
     public LigneCommande createLigneCommande(LigneCommande ligneCommande) {
@@ -45,6 +50,12 @@ public class LigneCommandService implements LigneCommandeService {
     @Override
     public LigneCommande getLigneCommandeById(Long id) {
         return ligneCommandeRepository.findById(id).orElseThrow(()->new RessourceNotFoundException(ResourceTypeConstant.LIGNECOMMAND,id,ErrorMessages.LigneCommandNotFoundMessage));
+    }
+    @Override
+    public List<LigneCommande> getAllLigneCommandeById(Long id) {
+        Commande commande = commandeRepository.findById(id).orElseThrow(()->new RessourceNotFoundException(ResourceTypeConstant.COMMANDE,id,ErrorMessages.CommandeNotFoundMessage));
+        List<LigneCommande> ligneCommandeList = ligneCommandeRepository.findByCommande(commande);
+        return ligneCommandeList;
     }
 
     @Override

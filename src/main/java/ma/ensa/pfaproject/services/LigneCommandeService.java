@@ -12,5 +12,8 @@ public interface LigneCommandeService {
 
     public void deleteLigneCommande(Long id);
     public LigneCommande getLigneCommandeById(Long id);
+
+    List<LigneCommande> getAllLigneCommandeById(Long id);
+
     public List<LigneCommande> getAllCommandes();
 }

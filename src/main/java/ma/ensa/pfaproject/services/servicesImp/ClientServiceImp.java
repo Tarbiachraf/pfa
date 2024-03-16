@@ -3,20 +3,29 @@ package ma.ensa.pfaproject.services.servicesImp;
 import ma.ensa.pfaproject.constants.ErrorMessages;
 import ma.ensa.pfaproject.constants.ResourceTypeConstant;
 import ma.ensa.pfaproject.entities.Client;
+import ma.ensa.pfaproject.entities.Commande;
 import ma.ensa.pfaproject.exceptions.RessourceNotFoundException;
 import ma.ensa.pfaproject.repositories.ClientRepository;
+import ma.ensa.pfaproject.repositories.CommandeRepository;
 import ma.ensa.pfaproject.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceImp implements ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private CommandeRepository commandeRepository;
+
+
+
     @Override
     public Client createClient(Client newClient) {
         return clientRepository.save(newClient);
@@ -44,7 +53,10 @@ public class ClientServiceImp implements ClientService {
     @Override
     public void deleteClient(Long id) {
         if(clientRepository.existsById(id)){
+            Client client = clientRepository.findById(id).get();
             clientRepository.deleteById(id);
+//            List<Commande> commandeList =commandeRepository.findAllByClient(client);
+//            commandeRepository.deleteAll(commandeList);
         }
         else {
             throw new RessourceNotFoundException(ResourceTypeConstant.CLIENT,id, ErrorMessages.ClientNotFoundMessage);

@@ -23,6 +23,6 @@ public class CategorieProduit {
     private String nomCategorie;
 
     @JsonIgnoreProperties("categorieProduit")
-    @OneToMany(mappedBy = "categorieProduit")
+    @OneToMany(mappedBy = "categorieProduit", cascade = CascadeType.REMOVE)
     private List<Produit> produitList;
 }

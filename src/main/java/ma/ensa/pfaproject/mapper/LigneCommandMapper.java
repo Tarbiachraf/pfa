@@ -29,7 +29,7 @@ public class LigneCommandMapper {
 
     public LigneCommandeDto toLigneCommandeDTO(LigneCommande ligneCommande) {
         return LigneCommandeDto.builder()
-                .idProduit(ligneCommande.getId())
+                .idProduit(ligneCommande.getProduit().getIdProduit())
                 .quantite(ligneCommande.getQuantite())
                 .build();
     }

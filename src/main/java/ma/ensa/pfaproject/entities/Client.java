@@ -37,7 +37,7 @@ public class Client {
     private String societe;
 
     @JsonIgnoreProperties("client")
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Commande> commandes;
 
 }
