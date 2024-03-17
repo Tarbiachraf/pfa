@@ -11,6 +11,7 @@ import ma.ensa.pfaproject.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,11 +28,12 @@ public class CommandResponseMapper {
     public CommandResponse toCommandeResponse(Commande commande) {
         return CommandResponse.builder()
                 .idCommande(commande.getIdCommande())
+                .idClient(commande.getClient().getIdClient())
                 .nomClient(commande.getClient().getNomClient())
                 .montantTotal(commande.getMontantTotal())
-                .dateReglement(commande.getDateReglement())
+                .dateReglement(SimpleDateFormat.getDateInstance().format(commande.getDateReglement()))
                 .status(commande.getStatusCde())
-                .dateCommande(commande.getDateCommande())
+                .dateCommande(SimpleDateFormat.getDateInstance().format(commande.getDateCommande()))
                 .build();
     }
 

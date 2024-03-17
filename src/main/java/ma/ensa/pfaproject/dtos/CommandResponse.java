@@ -10,10 +10,11 @@ import java.util.Date;
 @Builder
 public class CommandResponse {
     private Long idCommande;
+    private Long idClient;
     private String nomClient;
     private double montantTotal;
     private StatusCommande status;
-    private Date dateReglement;
-    private Date dateCommande;
+    private String dateReglement;
+    private String dateCommande;
 
 }
