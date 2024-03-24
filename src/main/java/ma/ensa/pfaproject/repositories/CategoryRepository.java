@@ -11,7 +11,6 @@ import java.util.Locale;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategorieProduit,Long> {
-    public CategorieProduit findByNomCategorie(String nomCategorie);
 
     @Query("SELECT c from CategorieProduit c where c.nomCategorie LIKE %:key%")
     List<CategorieProduit> getAllCategorieProduitsByNomContainingKey(String key);

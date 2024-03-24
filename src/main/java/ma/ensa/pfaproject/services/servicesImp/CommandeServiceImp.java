@@ -70,7 +70,6 @@ public class CommandeServiceImp implements CommandeService {
         Commande existingCommande = commandeRepository.findById(commandeId)
                 .orElseThrow(() -> new RessourceNotFoundException(ResourceTypeConstant.COMMANDE, commandeId, ErrorMessages.CommandeNotFoundMessage));
 
-        // Mise à jour des attributs de la commande
         existingCommande.setMontantTotal(updatedCommandeDto.getMontantTotal());
         existingCommande.setStatusCde(updatedCommandeDto.getStatus());
         existingCommande.setDateReglement(updatedCommandeDto.getDateReglement());
